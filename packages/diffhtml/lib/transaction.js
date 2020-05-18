@@ -1,5 +1,6 @@
 import { StateCache, MiddlewareCache } from './util/caches';
 import { gc } from './util/memory';
+import Pool from './util/pool';
 import makeMeasure from './util/make-measure';
 import process from './util/process';
 import schedule from './tasks/schedule';
@@ -197,10 +198,18 @@ export default class Transaction {
     // Rendering is complete.
     state.isRendering = false;
 
+    const global = /** @type {any} */ (globalThis);
+
     // Clean up memory before rendering the next transaction, however if
     // another transaction is running concurrently this will be delayed until
     // the last render completes.
-    gc();
+    //
+    // Defer garbage collection if the current size is more than double the
+    // current allocation.
+    if (Pool.memory.free.size < Pool.memory.allocated.size * 2) {
+      global.cancelIdleCallback(this._idleCallback);
+      this._idleCallback = global.requestIdleCallback(gc);
+    }
 
     // Trigger all `onceEnded` callbacks, so that middleware can know the
     // transaction has ended.
