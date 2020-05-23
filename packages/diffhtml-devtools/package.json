@@ -69,8 +69,6 @@
     "diffhtml": "^1.0.0-beta.17",
     "diffhtml-components": "^1.0.0-beta.17",
     "diffhtml-middleware-inline-transitions": "^1.0.0-beta.17",
-    "diffhtml-middleware-logger": "^1.0.0-beta.17",
-    "diffhtml-middleware-verify-state": "^1.0.0-beta.17",
     "diffhtml-react-compat": "^1.0.0-beta.17",
     "hyperlist": "^1.0.0",
     "react-chartist": "^0.13.3",
