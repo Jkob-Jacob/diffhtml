@@ -16,7 +16,7 @@ export const defaultTasks = [
 ];
 
 export const tasks = {
-  schedule, shouldUpdate, reconcileTrees, syncTrees, patchNode, endAsPromise
+  schedule, shouldUpdate, reconcileTrees, syncTrees, patchNode, endAsPromise,
 };
 
 export default class Transaction {
@@ -24,7 +24,7 @@ export default class Transaction {
    *
    * @param {Mount} domNode
    * @param {ValidInput} input
-   * @param {*} options
+   * @param {Options} options
    */
   static create(domNode, input, options) {
     return new Transaction(domNode, input, options);
@@ -110,8 +110,7 @@ export default class Transaction {
    */
   constructor(domNode, input, options) {
     this.domNode = domNode;
-    // TODO: Rename this to input.
-    this.markup = input;
+    this.input = input;
     this.options = options;
 
     this.state = StateCache.get(domNode) || {
@@ -230,7 +229,7 @@ export default class Transaction {
   domNode = '';
 
   /** @type {ValidInput} */
-  markup = '';
+  input = '';
 
   /** @type {VTree=} */
   oldTree = undefined;

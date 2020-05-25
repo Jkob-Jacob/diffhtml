@@ -3,14 +3,14 @@ import createTree from '../tree/create';
 import Transaction from '../transaction';
 
 export default function parseNewTree(/** @type {Transaction} */ transaction) {
-  const { state, markup, options } = transaction;
+  const { state, input, options } = transaction;
   const { measure } = state;
   const { inner } = options;
 
-  if (typeof markup === 'string') {
-    measure('parsing markup for new tree');
+  if (typeof input === 'string') {
+    measure('parsing input for new tree');
 
-    const { childNodes } = parse(markup, undefined, options);
+    const { childNodes } = parse(input, undefined, options);
 
     // If we are dealing with innerHTML, use all the Nodes. If we're dealing
     // with outerHTML, we can only support diffing against a single element,
@@ -23,6 +23,6 @@ export default function parseNewTree(/** @type {Transaction} */ transaction) {
       transaction.newTree = vTree;
     }
 
-    measure('parsing markup for new tree');
+    measure('parsing input for new tree');
   }
 }

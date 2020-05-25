@@ -20,13 +20,13 @@ tasks.delete(Internals.tasks.endAsPromise);
 // Add a new reconcile trees function to ensure we are diffing against a tree
 // instead of DOM Node.
 tasks.add(function reconcileTrees(transaction) {
-  const { domNode, markup, options } = transaction;
+  const { domNode, input, options } = transaction;
 
   // If we are in a render transaction where no markup was previously parsed
   // then reconcile trees will attempt to create a tree based on the incoming
   // markup (JSX/html/etc).
   if (!transaction.newTree) {
-    transaction.newTree = createTree(markup);
+    transaction.newTree = createTree(input);
   }
 
   // Associate the old tree with this brand new transaction. Always ensure that
@@ -53,7 +53,7 @@ tasks.add(function endAsString(transaction) {
  * will accept any input that `outerHTML` normally accepts. This is a true
  * render, but omits the DOM patching task.
  *
- * @param {any} markup Can be a diffHTML VTree object or string of HTML
+ * @param {any} input Can be a diffHTML VTree object or string of HTML
  * @return {String} of rendered markup representing the input rendered
  */
 exports.renderToString = function renderToString(markup, options = {}) {
