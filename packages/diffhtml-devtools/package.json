@@ -49,7 +49,6 @@
     "madge": "^3.4.4",
     "mocha": "^6.1.4",
     "promise": "^8.0.3",
-    "prop-types": "^15.7.2",
     "selenium-chromedriver": "^0.0.2",
     "selenium-standalone": "^6.16.0",
     "selenium-webdriver": "^4.0.0-alpha.1",
